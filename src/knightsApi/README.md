@@ -2,12 +2,6 @@
 
 Este projeto é uma API de exemplo construída com C# e .NET 8, seguindo a arquitetura hexagonal. A API permite gerenciar cavaleiros com operações CRUD básicas.
 
-## Tecnologia
-</br>
-<div>
-  <img src="https://skillicons.dev/icons?i=vscode,dotnet,cs,git,github,mongodb,docker,kubernetes,&perline=8" />
-</div>
-
 ## Estrutura do Projeto
 
 - **Knights.Core**: Contém entidades e interfaces de repositórios.
@@ -47,8 +41,6 @@ Este projeto é uma API de exemplo construída com C# e .NET 8, seguindo a arqui
     ```sh
     dotnet run --project Knights.API
     ```
-## Conecte-se comigo
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-000?style=for-the-badge&logo=linkedin&logoColor=0E76A8)](www.linkedin.com/in/augustocesarribeirofreire/)
 
 ## Contribuição
 
