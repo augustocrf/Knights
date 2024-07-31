@@ -15,8 +15,8 @@ O desafio Knights visa a construcao de um sistema cadastro de herois utilizando 
 </div>
 
 ## Projetos
-    - ![Knights API - Backend](https://github.com/augustocrf/Knights/tree/main/src/knightsApi/README.md)
-    - ![Knights Vue.js - Frontend](https://github.com/augustocrf/Knights/tree/main/src/knightsUi/README.md)
+- [Knights API - Backend](src/knightsApi/README.md)
+- [Knights Vue.js - Frontend](knightsUi/README.md)
 
 <div>
     <h2> Conecte-se comigo</h2>
@@ -32,8 +32,8 @@ O desafio Knights visa a construcao de um sistema cadastro de herois utilizando 
 
 ## Check List
 <br/>
-<div>
-    <img align="center" src="https://github.com/augustocrf/Knights/tree/main/src/assets/checklist.png" />
+<div align="center">
+    <img align="center" src="assets/checklist.png"/>
 </div>
 
 
