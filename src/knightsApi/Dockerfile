@@ -1,7 +1,8 @@
 # Usar a imagem oficial do .NET SDK para construir a aplicação
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
-EXPOSE 4200
+EXPOSE 8080
+EXPOSE 8081
 
 # Copiar os arquivos de projeto e restaurar as dependências
 COPY *.sln .
