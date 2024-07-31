@@ -19,5 +19,14 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  knights-ui:
+    build:
+      context: ../knightsUi
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - knights-api
+      
 volumes:
   mongo-data:
