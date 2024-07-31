@@ -1,32 +1,45 @@
 using Knights.Core.Entities;
 using Knights.Core.Interfaces;
-using System.Collections.Concurrent;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace Knights.Infrastructure.Repositories
 {
     public class AttributeRepository : IAttributeRepository
     {
-        private static ConcurrentDictionary<Guid, Attributes> _attributes = new();
-        public Task<IEnumerable<Attributes>> GetAttributesAsync() => Task.FromResult(_attributes.Values.AsEnumerable());
-        public Task<Attributes> GetAttributeByIdAsync(Guid id) =>
-            _attributes.TryGetValue(id, out var attribute) ? Task.FromResult(attribute) : Task.FromResult<Attributes>(null);
-        public Task AddAttributeAsync(Attributes attribute)
+        private readonly IMongoCollection<Attributes> _attributesCollection;
+
+        public AttributeRepository(IConfiguration configuration)
+        {
+            var client = new MongoClient(configuration["MongoDB:ConnectionString"]);
+            var database = client.GetDatabase(configuration["MongoDB:DatabaseName"]);
+            _attributesCollection = database.GetCollection<Attributes>("Attributes");
+        }
+
+        public async Task<IEnumerable<Attributes>> GetAttributesAsync()
+        {
+            return await _attributesCollection.Find(_ => true).ToListAsync();
+        }
+
+        public async Task<Attributes> GetAttributeByIdAsync(Guid id)
+        {
+            return await _attributesCollection.Find(k => k.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task AddAttributeAsync(Attributes attribute)
         {
             attribute.Id = Guid.NewGuid();
-            _attributes[attribute.Id] = attribute;
-            return Task.CompletedTask;
+            await _attributesCollection.InsertOneAsync(attribute);
         }
 
-        public Task UpdateAttributeAsync(Attributes attribute)
+        public async Task UpdateAttributeAsync(Attributes attribute)
         {
-            _attributes[attribute.Id] = attribute;
-            return Task.CompletedTask;
+            await _attributesCollection.ReplaceOneAsync(k => k.Id == attribute.Id, attribute);
         }
 
-        public Task DeleteAttributeAsync(Guid id)
+        public async Task DeleteAttributeAsync(Guid id)
         {
-            _attributes.TryRemove(id, out _);
-            return Task.CompletedTask;
+            await _attributesCollection.DeleteOneAsync(k => k.Id == id);
         }
     }
 }

@@ -1,38 +1,51 @@
 using Knights.Core.Entities;
 using Knights.Core.Interfaces;
-using System.Collections.Concurrent;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace Knights.Infrastructure.Repositories
 {
     public class PowerRepository : IPowerRepository
     {
-        private static ConcurrentDictionary<Guid, Power> _powers = new();
+        private readonly IMongoCollection<Power> _powersCollection;
 
-        public Task<IEnumerable<Power>> GetPowersAsync() => Task.FromResult(_powers.Values.AsEnumerable());
+        public PowerRepository(IConfiguration configuration)
+        {
+            var client = new MongoClient(configuration["MonPowersnnectionString"]);
+            var database = client.GetDatabase(configuration["MongoDB:DatabaseName"]);
+            _powersCollection = database.GetCollection<Power>("Powers");
+        }
 
-        public Task<IEnumerable<Power>> GetPowersByFilterAsync(string filter) => 
-            Task.FromResult(_powers.Values.Where(p => p.Description.Contains(filter, StringComparison.OrdinalIgnoreCase)).AsEnumerable());
+        public async Task<IEnumerable<Power>> GetPowersAsync()
+        {
+            return await _powersCollection.Find(_ => true).ToListAsync();
+        }
 
-        public Task<Power> GetPowerByIdAsync(Guid id) =>
-            _powers.TryGetValue(id, out var power) ? Task.FromResult(power) : Task.FromResult<Power>(null);
+        public async Task<IEnumerable<Power>> GetPowersByFilterAsync(string filter)
+        {
+            var filterDefinition = Builders<Power>.Filter.Regex("Description", new MongoDB.Bson.BsonRegularExpression(filter, "i"));
+            return await _powersCollection.Find(filterDefinition).ToListAsync();
+        }
 
-        public Task AddPowerAsync(Power power)
+        public async Task<Power> GetPowerByIdAsync(Guid id)
+        {
+            return await _powersCollection.Find(k => k.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task AddPowerAsync(Power power)
         {
             power.Id = Guid.NewGuid();
-            _powers[power.Id] = power;
-            return Task.CompletedTask;
+            await _powersCollection.InsertOneAsync(power);
         }
 
-        public Task UpdatePowerAsync(Power power)
+        public async Task UpdatePowerAsync(Power power)
         {
-            _powers[power.Id] = power;
-            return Task.CompletedTask;
+            await _powersCollection.ReplaceOneAsync(k => k.Id == power.Id, power);
         }
 
-        public Task DeletePowerAsync(Guid id)
+        public async Task DeletePowerAsync(Guid id)
         {
-            _powers.TryRemove(id, out _);
-            return Task.CompletedTask;
+            await _powersCollection.DeleteOneAsync(k => k.Id == id);
         }
     }
 }

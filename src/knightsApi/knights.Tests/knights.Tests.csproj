@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Knights.Core\knights.Core.csproj" />
-    <ProjectReference Include="..\Knights.Application\knights.Application.csproj" />
-    <ProjectReference Include="..\Knights.Infrastructure\knights.Infrastructure.csproj" />
+    <ProjectReference Include="..\knights.Core\knights.Core.csproj" />
+    <ProjectReference Include="..\knights.Application\knights.Application.csproj" />
+    <ProjectReference Include="..\knights.Infrastructure\knights.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

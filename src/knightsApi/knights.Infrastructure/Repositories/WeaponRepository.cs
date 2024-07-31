@@ -1,38 +1,51 @@
 using Knights.Core.Entities;
 using Knights.Core.Interfaces;
-using System.Collections.Concurrent;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace Knights.Infrastructure.Repositories
 {
     public class WeaponRepository : IWeaponRepository
     {
-        private static ConcurrentDictionary<Guid, Weapon> _weapons = new();
+        private readonly IMongoCollection<Weapon> _weaponCollection;
 
-        public Task<IEnumerable<Weapon>> GetWeaponsAsync() => Task.FromResult(_weapons.Values.AsEnumerable());
+        public WeaponRepository(IConfiguration configuration)
+        {
+            var client = new MongoClient(configuration["MongoDB:ConnectionString"]);
+            var database = client.GetDatabase(configuration["MongoDB:DatabaseName"]);
+            _weaponCollection = database.GetCollection<Weapon>("Weapon");
+        }
 
-        public Task<IEnumerable<Weapon>> GetWeaponsByFilterAsync(string filter) => 
-            Task.FromResult(_weapons.Values.Where(w => w.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)).AsEnumerable());
+        public async Task<IEnumerable<Weapon>> GetWeaponsAsync()
+        {
+            return await _weaponCollection.Find(_ => true).ToListAsync();
+        }
 
-        public Task<Weapon> GetWeaponByIdAsync(Guid id) =>
-            _weapons.TryGetValue(id, out var weapon) ? Task.FromResult(weapon) : Task.FromResult<Weapon>(null);
+        public async Task<IEnumerable<Weapon>> GetWeaponsByFilterAsync(string filter)
+        {
+            var filterDefinition = Builders<Weapon>.Filter.Regex("Name", new MongoDB.Bson.BsonRegularExpression(filter, "i"));
+            return await _weaponCollection.Find(filterDefinition).ToListAsync();
+        }
 
-        public Task AddWeaponAsync(Weapon weapon)
+        public async Task<Weapon> GetWeaponByIdAsync(Guid id)
+        {
+            return await _weaponCollection.Find(k => k.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task AddWeaponAsync(Weapon weapon)
         {
             weapon.Id = Guid.NewGuid();
-            _weapons[weapon.Id] = weapon;
-            return Task.CompletedTask;
+            await _weaponCollection.InsertOneAsync(weapon);
         }
 
-        public Task UpdateWeaponAsync(Weapon weapon)
+        public async Task UpdateWeaponAsync(Weapon weapon)
         {
-            _weapons[weapon.Id] = weapon;
-            return Task.CompletedTask;
+            await _weaponCollection.ReplaceOneAsync(k => k.Id == weapon.Id, weapon);
         }
 
-        public Task DeleteWeaponAsync(Guid id)
+        public async Task DeleteWeaponAsync(Guid id)
         {
-            _weapons.TryRemove(id, out _);
-            return Task.CompletedTask;
+            await _weaponCollection.DeleteOneAsync(k => k.Id == id);
         }
     }
 }

@@ -1,38 +1,51 @@
 using Knights.Core.Entities;
 using Knights.Core.Interfaces;
-using System.Collections.Concurrent;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 namespace Knights.Infrastructure.Repositories
 {
     public class KnightRepository : IKnightRepository
     {
-        private static ConcurrentDictionary<Guid, Knight> _knights = new();
+        private readonly IMongoCollection<Knight> _knightsCollection;
 
-        public Task<IEnumerable<Knight>> GetKnightsAsync() => Task.FromResult(_knights.Values.AsEnumerable());
+        public KnightRepository(IConfiguration configuration)
+        {
+            var client = new MongoClient(configuration["MongoDB:ConnectionString"]);
+            var database = client.GetDatabase(configuration["MongoDB:DatabaseName"]);
+            _knightsCollection = database.GetCollection<Knight>("Knights");
+        }
 
-        public Task<IEnumerable<Knight>> GetKnightsByFilterAsync(string filter) => 
-            Task.FromResult(_knights.Values.Where(k => k.HeroClass.Contains(filter, StringComparison.OrdinalIgnoreCase)).AsEnumerable());
+        public async Task<IEnumerable<Knight>> GetKnightsAsync()
+        {
+            return await _knightsCollection.Find(_ => true).ToListAsync();
+        }
 
-        public Task<Knight> GetKnightByIdAsync(Guid id) =>
-            _knights.TryGetValue(id, out var knight) ? Task.FromResult(knight) : Task.FromResult<Knight>(null);
+        public async Task<IEnumerable<Knight>> GetKnightsByFilterAsync(string filter)
+        {
+            var filterDefinition = Builders<Knight>.Filter.Regex("HeroClass", new MongoDB.Bson.BsonRegularExpression(filter, "i"));
+            return await _knightsCollection.Find(filterDefinition).ToListAsync();
+        }
 
-        public Task AddKnightAsync(Knight knight)
+        public async Task<Knight> GetKnightByIdAsync(Guid id)
+        {
+            return await _knightsCollection.Find(k => k.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task AddKnightAsync(Knight knight)
         {
             knight.Id = Guid.NewGuid();
-            _knights[knight.Id] = knight;
-            return Task.CompletedTask;
+            await _knightsCollection.InsertOneAsync(knight);
         }
 
-        public Task UpdateKnightAsync(Knight knight)
+        public async Task UpdateKnightAsync(Knight knight)
         {
-            _knights[knight.Id] = knight;
-            return Task.CompletedTask;
+            await _knightsCollection.ReplaceOneAsync(k => k.Id == knight.Id, knight);
         }
 
-        public Task DeleteKnightAsync(Guid id)
+        public async Task DeleteKnightAsync(Guid id)
         {
-            _knights.TryRemove(id, out _);
-            return Task.CompletedTask;
+            await _knightsCollection.DeleteOneAsync(k => k.Id == id);
         }
     }
 }
