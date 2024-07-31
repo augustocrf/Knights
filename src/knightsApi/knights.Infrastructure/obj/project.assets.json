@@ -1,0 +1,116 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "Knights.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Knights.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Knights.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Knights.Application.dll": {}
+        }
+      },
+      "Knights.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Knights.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Knights.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Knights.Application/1.0.0": {
+      "type": "project",
+      "path": "../Knights.Application/Knights.Application.csproj",
+      "msbuildProject": "../Knights.Application/Knights.Application.csproj"
+    },
+    "Knights.Core/1.0.0": {
+      "type": "project",
+      "path": "../Knights.Core/Knights.Core.csproj",
+      "msbuildProject": "../Knights.Core/Knights.Core.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "Knights.Application >= 1.0.0",
+      "Knights.Core >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "/Users/macbookpro/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Infrastructure/Knights.Infrastructure.csproj",
+      "projectName": "Knights.Infrastructure",
+      "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Infrastructure/Knights.Infrastructure.csproj",
+      "packagesPath": "/Users/macbookpro/.nuget/packages/",
+      "outputPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Infrastructure/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/macbookpro/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Application/Knights.Application.csproj": {
+              "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Application/Knights.Application.csproj"
+            },
+            "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Core/Knights.Core.csproj": {
+              "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Core/Knights.Core.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
