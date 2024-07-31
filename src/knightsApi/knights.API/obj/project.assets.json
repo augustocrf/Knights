@@ -519,11 +519,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.API/Knights.API.csproj",
+      "projectUniqueName": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.API/Knights.API.csproj",
       "projectName": "Knights.API",
-      "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.API/Knights.API.csproj",
+      "projectPath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.API/Knights.API.csproj",
       "packagesPath": "/Users/macbookpro/.nuget/packages/",
-      "outputPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.API/obj/",
+      "outputPath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/macbookpro/.nuget/NuGet/NuGet.Config"
@@ -538,11 +538,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Application/Knights.Application.csproj": {
-              "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Application/Knights.Application.csproj"
+            "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Application/Knights.Application.csproj": {
+              "projectPath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Application/Knights.Application.csproj"
             },
-            "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Infrastructure/Knights.Infrastructure.csproj": {
-              "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Infrastructure/Knights.Infrastructure.csproj"
+            "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Infrastructure/Knights.Infrastructure.csproj": {
+              "projectPath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Infrastructure/Knights.Infrastructure.csproj"
             }
           }
         }

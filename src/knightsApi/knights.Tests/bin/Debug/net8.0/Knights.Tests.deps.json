@@ -1073,12 +1073,12 @@
           "Knights.Core": "1.0.0"
         },
         "runtime": {
-          "Knights.Application.dll": {}
+          "knights.Application.dll": {}
         }
       },
       "Knights.Core/1.0.0": {
         "runtime": {
-          "Knights.Core.dll": {}
+          "knights.Core.dll": {}
         }
       },
       "Knights.Infrastructure/1.0.0": {
@@ -1087,7 +1087,7 @@
           "Knights.Core": "1.0.0"
         },
         "runtime": {
-          "Knights.Infrastructure.dll": {}
+          "knights.Infrastructure.dll": {}
         }
       }
     }

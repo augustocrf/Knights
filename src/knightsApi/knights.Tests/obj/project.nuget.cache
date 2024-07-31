@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dxHbzGTXHgQs9LLGGq9l8qzzqSdzJ3/3ataCfFWzuCN7KsKtovTOeGh5Hy+np4uQAp0D+OjiAvbkr8Hfr5R8EA==",
+  "dgSpecHash": "b6WzbuLsIaCPHZ1rFHonEQDOue4UFJvqv7B7BhYGQsolNQqqW6dQ6dYES2Iiv3a0YX2/2fNlXiGaSuJLAPPpJQ==",
   "success": true,
-  "projectFilePath": "/Users/macbookpro/Documents/source/knights/knightsApi/Knights.Tests/Knights.Tests.csproj",
+  "projectFilePath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Tests/Knights.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/macbookpro/.nuget/packages/castle.core/5.1.1/castle.core.5.1.1.nupkg.sha512",
     "/Users/macbookpro/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",

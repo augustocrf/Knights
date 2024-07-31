@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/macbookpro/Documents/source/knights/knightsApi/knights.Core/knights.Core.csproj",
-      "projectName": "knights.Core",
-      "projectPath": "/Users/macbookpro/Documents/source/knights/knightsApi/knights.Core/knights.Core.csproj",
+      "projectUniqueName": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Core/Knights.Core.csproj",
+      "projectName": "Knights.Core",
+      "projectPath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Core/Knights.Core.csproj",
       "packagesPath": "/Users/macbookpro/.nuget/packages/",
-      "outputPath": "/Users/macbookpro/Documents/source/knights/knightsApi/knights.Core/obj/",
+      "outputPath": "/Users/macbookpro/Documents/source/kkkkkkk/Knights/src/knightsApi/Knights.Core/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/macbookpro/.nuget/NuGet/NuGet.Config"
